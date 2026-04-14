@@ -1,0 +1,82 @@
+/* Project: Campus Marketplace (Phase 2)
+   Theme: Simple Bubble
+*/
+
+:root {
+  --bubble-blue: #4d94ff;
+  --bubble-light: #e6f0ff;
+  --bubble-pink: #ff85a2;
+  --navy: #1c2559;
+  --white: #ffffff;
+  --shadow: 0 10px 25px rgba(77, 148, 255, 0.15);
+  --radius: 25px; 
+}
+
+* { box-sizing: border-box; font-family: 'Inter', sans-serif; }
+body { margin: 0; background-color: #f4f8ff; color: var(--navy); }
+a { text-decoration: none; color: inherit; }
+.container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+/* --- Header --- */
+.site-header {
+  background: var(--white); margin: 20px auto; padding: 20px 30px;
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  display: flex; justify-content: space-between; align-items: center;
+}
+.brand { font-size: 1.5rem; font-weight: 900; color: var(--bubble-blue); }
+.nav-links { display: flex; gap: 15px; }
+.nav-link { font-weight: 700; padding: 10px 20px; border-radius: 20px; transition: 0.3s; }
+.nav-link:hover, .nav-link.active { background: var(--bubble-light); color: var(--bubble-blue); }
+.admin-only, .logged-in-only, .guest-only { display: none; } /* Controlled by JS */
+
+/* --- Hero --- */
+.hero { text-align: center; padding: 60px 20px; margin-bottom: 30px; }
+.hero h1 { font-size: 3rem; color: var(--bubble-blue); margin-bottom: 10px; }
+
+/* --- Search Bar --- */
+.search-bar {
+  background: var(--white); padding: 20px; border-radius: var(--radius);
+  box-shadow: var(--shadow); display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 15px;
+  margin-bottom: 40px;
+}
+
+/* --- Forms & Inputs --- */
+.bubble-input, .search-bar input, .search-bar select {
+  width: 100%; padding: 15px; border-radius: 15px; border: 2px solid var(--bubble-light);
+  outline: none; font-size: 1rem; font-weight: 600; color: var(--navy); transition: 0.3s;
+}
+.bubble-input:focus, .search-bar input:focus, .search-bar select:focus { border-color: var(--bubble-blue); }
+
+/* --- Role Switcher Buttons --- */
+.role-btn {
+  flex: 1; padding: 15px; border-radius: 15px; border: none; font-weight: 800; 
+  cursor: pointer; transition: 0.3s; background: var(--bubble-light); color: var(--bubble-blue);
+}
+.role-btn.active { background: var(--bubble-blue); color: var(--white); }
+
+/* --- Product Cards --- */
+.grid-products { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
+.card {
+  background: var(--white); border-radius: var(--radius); padding: 15px;
+  box-shadow: var(--shadow); text-align: center; transition: 0.3s; border: 2px solid transparent;
+}
+.card:hover { transform: translateY(-5px); border-color: var(--bubble-light); }
+.product-image {
+  height: 160px; background: var(--bubble-light); border-radius: 15px;
+  display: flex; align-items: center; justify-content: center; font-size: 4rem; margin-bottom: 15px;
+}
+.product-price {
+  display: inline-block; background: var(--bubble-light); color: var(--bubble-blue);
+  padding: 8px 16px; border-radius: 20px; font-weight: 800; margin-top: 10px;
+}
+
+/* --- Buttons --- */
+.btn {
+  display: inline-block; padding: 15px 30px; background: var(--bubble-blue);
+  color: var(--white); font-weight: 800; border-radius: 30px; border: none; cursor: pointer; transition: 0.3s;
+}
+.btn:hover { transform: scale(1.05); }
+.btn-ghost { background: var(--bubble-light); color: var(--bubble-blue); }
+
+/* --- Footer --- */
+.footer { text-align: center; padding: 40px; color: #888; margin-top: 50px; }
