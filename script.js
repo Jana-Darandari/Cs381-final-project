@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const STORAGE_KEY = "bubble_market_data";
   const USERS_KEY = "bubble_users_data";
   const MESSAGES_KEY = "bubble_messages_data";
-  const CURRENT_USER_KEY = "bubble_current_user"; // Replaces the old ROLE_KEY
+  const CURRENT_USER_KEY = "bubble_current_user";
 
   // 1. FAKE DATABASE SETUP (Relational Tables)
   if (!localStorage.getItem(USERS_KEY)) {
@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let users = JSON.parse(localStorage.getItem(USERS_KEY));
   let products = JSON.parse(localStorage.getItem(STORAGE_KEY));
   let messages = JSON.parse(localStorage.getItem(MESSAGES_KEY));
-  let currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY)); // Object: { user_id, role }
+  let currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
 
   // 2. AUTHENTICATION & SECURITY
   const currentRole = currentUser ? currentUser.role : "guest";
@@ -88,10 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 4. LOGIN LOGIC (Validates against Users array)
+  // 4. LOGIN LOGIC
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
-    // Hide the old role switcher from the original UI since auth checks the DB now
     const roleBtns = document.querySelectorAll(".role-btn");
     roleBtns.forEach(btn => btn.style.display = 'none');
 
@@ -112,7 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // 5. HOMEPAGE SEARCH & FILTER (Supports Images)
+  // 5. HOMEPAGE SEARCH & FILTER
   const productsGrid = document.getElementById("productsGrid");
   if (productsGrid) {
     function renderProducts() {
@@ -157,19 +156,37 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts();
   }
 
-  // 6. ADD PRODUCT (Links item to seller_id)
+  // 6. ADD PRODUCT (WITH JS FORM VALIDATION)
   const addForm = document.getElementById("addForm");
   if (addForm) {
     addForm.addEventListener("submit", (e) => {
       e.preventDefault();
       
+      const title = document.getElementById("addTitle").value.trim();
+      const price = Number(document.getElementById("addPrice").value);
+      const description = document.getElementById("addDescription").value.trim();
+      
+      // Explicit JS Form Validation
+      if (title.length < 3) {
+        alert("Product title must be at least 3 characters long.");
+        return;
+      }
+      if (price <= 0 || isNaN(price)) {
+        alert("Price must be a valid positive number.");
+        return;
+      }
+      if (description.length < 10) {
+        alert("Please provide a description of at least 10 characters.");
+        return;
+      }
+
       const newItem = {
         id: Date.now(),
         seller_id: currentUser.user_id,
-        title: document.getElementById("addTitle").value,
+        title: title,
         category: document.getElementById("addCategory").value,
-        price: Number(document.getElementById("addPrice").value),
-        description: document.getElementById("addDescription").value,
+        price: price,
+        description: description,
         item_image: document.getElementById("addImage").value,
         status: "available"
       };
@@ -200,7 +217,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
-  // 8. MY LISTINGS (Filters by logged-in user's seller_id)
+  // 8. MY LISTINGS
   const myListings = document.getElementById("myListings");
   if (myListings) {
     const myProducts = products.filter(p => p.seller_id === currentUser.user_id);
@@ -255,9 +272,8 @@ document.addEventListener("DOMContentLoaded", () => {
       detailCard.innerHTML = `<h2>Product not found.</h2>`;
     }
 
-    // Handle sending the message
     window.sendMessage = function(itemId, receiverId) {
-      const text = document.getElementById("msgText").value;
+      const text = document.getElementById("msgText").value.trim();
       if(!text) return alert("Please type a message.");
 
       messages.push({

@@ -269,3 +269,29 @@ a {
   color: rgba(255,255,255,0.6);
   margin-top: 50px;
 }
+
+/* --- MOBILE RESPONSIVENESS (PHASE 2 REQUIREMENT) --- */
+@media (max-width: 768px) {
+  .site-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .nav-links {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .search-bar {
+    grid-template-columns: 1fr; /* Stacks the search filters vertically */
+  }
+  
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+  
+  .grid-products {
+    grid-template-columns: 1fr; /* 1 item per row on phones */
+  }
+}
