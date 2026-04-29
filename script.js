@@ -2,7 +2,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const STORAGE_KEY = "bubble_market_data";
   const USERS_KEY = "bubble_users_data";
   const MESSAGES_KEY = "bubble_messages_data";
+<<<<<<< HEAD
   const CURRENT_USER_KEY = "bubble_current_user";
+=======
+  const CURRENT_USER_KEY = "bubble_current_user"; // Replaces the old ROLE_KEY
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
 
   // 1. FAKE DATABASE SETUP (Relational Tables)
   if (!localStorage.getItem(USERS_KEY)) {
@@ -26,7 +30,11 @@ document.addEventListener("DOMContentLoaded", () => {
   let users = JSON.parse(localStorage.getItem(USERS_KEY));
   let products = JSON.parse(localStorage.getItem(STORAGE_KEY));
   let messages = JSON.parse(localStorage.getItem(MESSAGES_KEY));
+<<<<<<< HEAD
   let currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY));
+=======
+  let currentUser = JSON.parse(localStorage.getItem(CURRENT_USER_KEY)); // Object: { user_id, role }
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
 
   // 2. AUTHENTICATION & SECURITY
   const currentRole = currentUser ? currentUser.role : "guest";
@@ -88,9 +96,16 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+<<<<<<< HEAD
   // 4. LOGIN LOGIC
   const loginForm = document.getElementById("loginForm");
   if (loginForm) {
+=======
+  // 4. LOGIN LOGIC (Validates against Users array)
+  const loginForm = document.getElementById("loginForm");
+  if (loginForm) {
+    // Hide the old role switcher from the original UI since auth checks the DB now
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
     const roleBtns = document.querySelectorAll(".role-btn");
     roleBtns.forEach(btn => btn.style.display = 'none');
 
@@ -111,7 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+<<<<<<< HEAD
   // 5. HOMEPAGE SEARCH & FILTER
+=======
+  // 5. HOMEPAGE SEARCH & FILTER (Supports Images)
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
   const productsGrid = document.getElementById("productsGrid");
   if (productsGrid) {
     function renderProducts() {
@@ -156,12 +175,17 @@ document.addEventListener("DOMContentLoaded", () => {
     renderProducts();
   }
 
+<<<<<<< HEAD
   // 6. ADD PRODUCT (WITH JS FORM VALIDATION)
+=======
+  // 6. ADD PRODUCT (Links item to seller_id)
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
   const addForm = document.getElementById("addForm");
   if (addForm) {
     addForm.addEventListener("submit", (e) => {
       e.preventDefault();
       
+<<<<<<< HEAD
       const title = document.getElementById("addTitle").value.trim();
       const price = Number(document.getElementById("addPrice").value);
       const description = document.getElementById("addDescription").value.trim();
@@ -187,6 +211,15 @@ document.addEventListener("DOMContentLoaded", () => {
         category: document.getElementById("addCategory").value,
         price: price,
         description: description,
+=======
+      const newItem = {
+        id: Date.now(),
+        seller_id: currentUser.user_id,
+        title: document.getElementById("addTitle").value,
+        category: document.getElementById("addCategory").value,
+        price: Number(document.getElementById("addPrice").value),
+        description: document.getElementById("addDescription").value,
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
         item_image: document.getElementById("addImage").value,
         status: "available"
       };
@@ -217,7 +250,11 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
 
+<<<<<<< HEAD
   // 8. MY LISTINGS
+=======
+  // 8. MY LISTINGS (Filters by logged-in user's seller_id)
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
   const myListings = document.getElementById("myListings");
   if (myListings) {
     const myProducts = products.filter(p => p.seller_id === currentUser.user_id);
@@ -272,8 +309,14 @@ document.addEventListener("DOMContentLoaded", () => {
       detailCard.innerHTML = `<h2>Product not found.</h2>`;
     }
 
+<<<<<<< HEAD
     window.sendMessage = function(itemId, receiverId) {
       const text = document.getElementById("msgText").value.trim();
+=======
+    // Handle sending the message
+    window.sendMessage = function(itemId, receiverId) {
+      const text = document.getElementById("msgText").value;
+>>>>>>> 1aa06c0d1e4dbd090b432722369aa3cbd08d6ae4
       if(!text) return alert("Please type a message.");
 
       messages.push({
