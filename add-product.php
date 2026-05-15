@@ -3,6 +3,12 @@
 // add-product.php
 // ============================================
 session_start();
+
+// Generate a CSRF token if one doesn't exist
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 require_once 'php/db_connect.php';
 
 // Must be logged in
@@ -40,6 +46,8 @@ $errorMessages = [
       <?php endif; ?>
 
       <form method="POST" action="php/add_item.php" style="display:grid; gap:15px;">
+        <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
+        
         <div>
           <label style="font-weight:700; margin-bottom:5px; display:block;">What are you selling?</label>
           <input type="text" name="title" class="bubble-input" placeholder="Example: Calculus Textbook" required>

@@ -16,6 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// --- CSRF Token Validation ---
+if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    die("Security Error: Invalid CSRF token.");
+}
+
 // --- Input Validation & Sanitization ---
 $title       = htmlspecialchars(trim(filter_input(INPUT_POST, 'title',       FILTER_DEFAULT)));
 $category    = htmlspecialchars(trim(filter_input(INPUT_POST, 'category',    FILTER_DEFAULT)));
