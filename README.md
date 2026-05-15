@@ -21,7 +21,7 @@ This project runs purely on Vanilla PHP and MySQL. No external frameworks are re
    * Open your MySQL manager (HeidiSQL or phpMyAdmin).
    * Import the `schema.sql` file provided in the root directory. This will auto-generate the `bubble_market` database, tables, and 10+ sample records.
    * Verify your local database credentials inside `php/db_connect.php`.
-4. **Launch:** Open your browser and navigate to `http://localhost/Cs381-final-project`.
+4. **Launch:** Open your browser and navigate to `https://github.com/Jana-Darandari/Cs381-final-project.git`.
 
 ## Default Login Credentials
 The `schema.sql` file provides pre-configured accounts for testing (All passwords are exactly: **password**).
